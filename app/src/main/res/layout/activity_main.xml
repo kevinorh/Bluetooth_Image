@@ -43,7 +43,6 @@
         android:id="@+id/gForce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/msg"
         android:layout_margin="15dp"
@@ -53,7 +52,6 @@
         android:id="@+id/msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/writemsg"
         android:layout_margin="15dp"
@@ -66,7 +64,26 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="15dp"/>
+        android:layout_margin="15dp"
+        android:visibility="invisible"/>
+    <Button
+        android:id="@+id/btnOpenGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp"/>
+
+    <ImageView
+        android:id="@+id/imagen"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@id/btnOpenGallery"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@mipmap/ic_launcher"
+        android:layout_margin="16dp"
+        />
     <Button
         android:id="@+id/send"
         android:layout_width="wrap_content"

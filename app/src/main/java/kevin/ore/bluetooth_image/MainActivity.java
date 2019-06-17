@@ -10,9 +10,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -63,6 +67,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor accelerometer;
     private float vibrateThreshold = 0;
     public Vibrator v;
+
+    //Image from gallery
+    private Button btnOpenGallery;
+    ImageView imagen;
+    private static final int PICK_IMAGE = 100;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +149,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 sendReceive.write(string.getBytes());
             }
         });
+        btnOpenGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGalery();
+            }
+        });
+    }
+    private void openGalery(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(intent,PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+            imageUri = data.getData();
+            imagen.setImageURI(imageUri);
+        }
     }
 
     Handler handler = new Handler(new Handler.Callback() {
@@ -176,6 +205,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         writeMsg = (EditText) findViewById(R.id.writemsg);
         listDevices = (Button) findViewById(R.id.listDevices);
         gForce = (TextView) findViewById(R.id.gForce);
+
+        btnOpenGallery = (Button) findViewById(R.id.btnOpenGallery);
+        imagen = (ImageView) findViewById(R.id.imagen);
     }
 
     @Override
